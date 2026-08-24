@@ -137,8 +137,8 @@ function setPricing() {
   monthlyOpts.forEach(el => el.classList.toggle('active', !annual));
   annualOpts.forEach(el => el.classList.toggle('active', annual));
 }
-pToggle.addEventListener('click', setPricing);
-pToggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setPricing(); } });
+if (pToggle) pToggle.addEventListener('click', setPricing);
+if (pToggle) pToggle.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setPricing(); } });
 
 // ── FAQ accordion ──
 const faqItems = document.querySelectorAll('.faq-item');
@@ -152,7 +152,9 @@ document.querySelectorAll('.faq-question').forEach(btn => {
   });
 });
 
-faqToggleAll.addEventListener('click', () => {
+if (faqToggleAll) {
+  faqToggleAll.addEventListener('click', () => {
+
   allExpanded = !allExpanded;
   if (allExpanded) {
     // Staggered expand — slow cascade, each waits for the previous to start breathing
@@ -169,10 +171,11 @@ faqToggleAll.addEventListener('click', () => {
   // Update label after all animations complete
   setTimeout(updateFaqToggleLabel, faqItems.length * 220 + 100);
 });
+}
 
 function updateFaqToggleLabel() {
   const openCount = document.querySelectorAll('.faq-item.open').length;
   allExpanded = openCount === faqItems.length;
-  faqToggleAll.textContent = allExpanded ? 'Collapse All' : 'Expand All';
+  if (faqToggleAll) faqToggleAll.textContent = allExpanded ? 'Collapse All' : 'Expand All';
 }
 
